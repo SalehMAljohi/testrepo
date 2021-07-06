@@ -4,7 +4,7 @@
 
     <div class="jumbotron">
         <h1>ASP.NET</h1>
-        <p class="lead">hello </p>
+        <p class="lead">hi bro  </p>
         <p><a href="http://www.asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
     </div>
 
