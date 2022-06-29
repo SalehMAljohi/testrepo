@@ -1,0 +1,134 @@
+﻿@{
+    ViewBag.Title = "View2";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+<div class="col-12 p-0" id="fixing-margin-top"></div>
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators container mx-auto">
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+    </div>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="#" data-delayedsrc="/images/sliders/bank_alqutaibi_slider_1.jpg" style="max-height: 800px;" class="d-block w-100" style="max-height: 800px;">
+        </div>
+        <div class="carousel-item">
+            <img src="#" data-delayedsrc="/images/sliders/slider_2.jpg" style="max-height: 800px;" class="d-block w-100" style="max-height: 800px;">
+        </div>
+        <div class="carousel-item">
+            <img src="#" data-delayedsrc="/images/sliders/slider_4.jpg" style="max-height: 800px;" class="d-block w-100" style="max-height: 800px;">
+        </div>
+        <div class="carousel-item">
+            <img src="#" data-delayedsrc="/images/sliders/slider_3.jpg" style="max-height: 800px;" class="d-block w-100" style="max-height: 800px;">
+        </div>
+    </div>
+    <div class="col-12 container">
+        <button class="carousel-control-prev container" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <span class="fas fa-chevron-circle-left font-8 rounded-circle" style="color:var(--main-color);background: var(--second-color);"></span>
+            <!-- <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden"></span> -->
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <!-- <span class="carousel-control-next-icon" aria-hidden="true">
+              <span class=""></span>
+            </span>
+            <span class="visually-hidden">Next</span> -->
+            <span class="fas fa-chevron-circle-right font-8 rounded-circle" style="color:var(--main-color);background: var(--second-color);"></span>
+        </button>
+    </div>
+</div>
+<div class="col-12 py-5 ">
+    <div class="container p-2">
+        <div class="col-12 px-0 text-center">
+            <div style="position: absolute; left: 50%;z-index: -1;">
+                <div style="position: relative; left: -50%;width: 150px;height: 30px;background: #f3f7e0;"></div>
+            </div>
+            <h2 style="color:var(--main-color);font-weight: bold;">أبرز الصور</h2>
+        </div>
+        <div class="owl-carousel owl-carousel-3 pt-5" style="direction:ltr">
+            <div style="direction:rtl" data-aos="fade-up">
+                <div class="col-12 p-3 d-flex justify-content-center">
+                    <a href="/images/designs/1.jpeg" data-fancybox="gallery" data-caption="بنك القطيبي الإسلامي - خلي ثقتك فينا كبيرة" style="border-radius: 30px;overflow: hidden;">
+                        <img src="#" data-delayedsrc="/images/designs/1.jpeg" style="width: 400px;max-width: 100%;border-radius: 15px;">
+                    </a>
+                </div>
+            </div>
+            <div style="direction:rtl" data-aos="fade-up">
+                <div class="col-12 p-3 d-flex justify-content-center">
+                    <a href="/images/designs/2.jpeg" data-fancybox="gallery" data-caption="بنك القطيبي الإسلامي - نفتح لك أبواب جديدة" style="border-radius: 30px;overflow: hidden;">
+                        <img src="#" data-delayedsrc="/images/designs/2.jpeg" style="width: 400px;max-width: 100%;border-radius: 15px;">
+                    </a>
+                </div>
+            </div>
+            <div style="direction:rtl" data-aos="fade-up">
+                <div class="col-12 p-3 d-flex justify-content-center">
+                    <a href="/images/designs/3.jpeg" data-fancybox="gallery" data-caption="بنك القطيبي الإسلامي - بأي وقت تقدر تطلب كشف حسابك" style="border-radius: 30px;overflow: hidden;">
+                        <img src="#" data-delayedsrc="/images/designs/3.jpeg" style="width: 400px;max-width: 100%;border-radius: 15px;">
+                    </a>
+                </div>
+            </div>
+            <div style="direction:rtl" data-aos="fade-up">
+                <div class="col-12 p-3 d-flex justify-content-center">
+                    <a href="/images/designs/4.jpeg" data-fancybox="gallery" data-caption="بنك القطيبي الإسلامي - إبدأ رحلتك البنكية بفتح حساب جاري" style="border-radius: 30px;overflow: hidden;">
+                        <img src="#" data-delayedsrc="/images/designs/4.jpeg" style="width: 400px;max-width: 100%;border-radius: 15px;">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 pb-3 pt-0 text-center">
+        <a href="gallery.php">
+            <h4 style="color:var(--main-color);"><span style="background: var(--main-color);color:var(--second-color);" class="d-inline-block rounded-pill px-2 pt-0 pb-1">عرض</span> المزيد</h4>
+        </a>
+    </div>
+</div>
+
+<div class="col-12 py-5 " style="background-image: url(/images/index/app-qutaibi-bank.jpg);left: 0 !important; right: auto !important; background-size: cover !important; background-position-x: 32%; height: 600px;display: flex;justify-content: center;align-content: center;align-items: center;">
+    <!--<div class="container px-2 py-5">
+
+        <div class="col-12 col-md-6 col-sm-12 col-lg-6 px-2 text-center">
+            <h2 style="text-align: right; color:var(--second-color); ;">تطبيقات بنك القطيبي للهاتف الجوال</h2>
+            <p style="text-align: right; color:#808080 ;">استكشف الرسومات البيانية النابضة بالحياة والواجهات السهلة الاستخدام والتصفح السريع مع تطبيقات بنك القطيبي المبتكرة للخدمات البنكية على الهواتف الجوالة والحواسيب اللوحية.</p>
+            <div class="pws-content field-promotext2 text-right">
+                <p style="text-align: right;">-->
+
+                    <!-- <a rel="noopener noreferrer" target="_blank" href="" class="target-blank" title=""><img alt="" src="images/icon/store-btn.svg?h=42&amp;w=140&amp;hash=29C487B8E8C04FDA233D457937A42940CACC4B73&amp;la=ar" style="height: 42px; width: 140px;"></a> -->
+                    <!--<a rel="noopener noreferrer" target="_blank" href="http://qtb.me" class="target-blank" title=""><img alt="" src="/images/icon/google-btn.svg?h=42&amp;w=140&amp;hash=AD1B6395E769BCED6E45DBD32B563489D14FDFA3&amp;la=ar" style="height: 42px; width: 140px;"></a>-->
+                    <!-- <a rel="noopener noreferrer" target="_blank" href="" class="target-blank" title=""><img alt="" src="images/icon/huaweilogo.png?h=42&amp;w=140&amp;hash=C67DB1E6CDC34A6998DB027C1238FED7&amp;la=ar" style="height: 42px; width: 140px;"></a> -->
+                <!--</p>
+            </div>
+        </div>
+    </div>-->
+
+</div>
+<div class="col-12 py-0 " style="background:#fff;">
+    <div class="container px-2 pt-5">
+        <div class="col-12 px-0 text-center">
+            <div style="position: absolute; left: 50%;z-index: 0;">
+                <div style="position: relative; left: -50%;width: 200px;height: 30px;background: #ccd0b3;"></div>
+            </div>
+            <h2 style="color:var(--second-color);font-weight: bold;position: relative;z-index: 1;">الوكالات العالمية</h2>
+        </div>
+        <div class="owl-carousel owl-carousel-4 pt-1" style="direction:ltr">
+            <div style="direction:rtl" data-aos="fade-up">
+                <div class="col-12 p-5 d-flex justify-content-center">
+                    <img src="#" data-delayedsrc="/images/agency_logo/engaz.png" style="width:100%;border-radius:inherit;height: 100%;" class="rounded">
+                </div>
+            </div>
+            <div style="direction:rtl" data-aos="fade-up">
+                <div class="col-12 p-5 d-flex justify-content-center">
+                    <img src="#" data-delayedsrc="/images/agency_logo/ersal_logo.png" style="width:100%;border-radius:inherit;height: 100%;" class="rounded">
+                </div>
+            </div>
+
+            <div style="direction:rtl" data-aos="fade-up">
+                <div class="col-12 p-5 d-flex justify-content-center">
+                    <img src="#" data-delayedsrc="/images/agency_logo/quick_pay.png" style="width:100%;border-radius:inherit;height: 100%;" class="rounded">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
