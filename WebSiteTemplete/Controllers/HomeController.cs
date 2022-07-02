@@ -32,6 +32,11 @@ namespace WebSiteTemplete.Controllers
 
             return View();
         }
+        public ActionResult MainSetting()
+        {
+
+            return View();
+        }
         public ActionResult WarningPage()
         {
             ViewBag.Message = "Your contact page.";
