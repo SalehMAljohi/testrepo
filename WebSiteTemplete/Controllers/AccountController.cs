@@ -17,6 +17,7 @@ namespace WebSiteTemplete.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private static ApplicationDbContext db = new ApplicationDbContext();
 
         public AccountController()
         {
@@ -70,16 +71,22 @@ namespace WebSiteTemplete.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+               return View(model);
             }
 
+
             // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            // To enable password failures to trigger account lockout, change to shouldLockout: true     
+            //ApplicationUser signedUser = UserManager.FindByName(model.UserName);
+            //var VERFIY = SignInManager.UserManager.CheckPassword(signedUser, model.Password);
+            var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
+            var a = db.Users.FirstOrDefault(x => x.UserName == model.UserName);
+            //var result = await SignInManager.PasswordSignInAsync(model.UserName,model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    //ApplicationUser CurrentUser = UserManager.FindById(User.Identity.GetUserId());
+                    return RedirectToLocal(returnUrl, model.UserName);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -139,6 +146,7 @@ namespace WebSiteTemplete.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            //ViewBag.UserType = new SelectList(db.Roles.Where(a => !a.Name.Contains("admin")).ToList(), "Name", "Name");
             return View();
         }
 
@@ -149,24 +157,59 @@ namespace WebSiteTemplete.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            //ViewBag.UserType = new SelectList(db.Roles.Where(a => !a.Name.Contains("admin")).ToList(),
+                                                                          //  "Name", "Name");
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                   // await UserManager.AddToRoleAsync(user.Id, model.UserType);
+                    var userId = HttpContext.User.Identity.GetUserId();
+                    if (userId == null) { userId = user.Id; }
 
+                    var CurrentUser = db.Users.Where(a => a.Id == userId).SingleOrDefault();
                     return RedirectToAction("Index", "Home");
+                    //if (CurrentUser.UserType == "Tailor")
+                    //{
+                    //    return RedirectToAction("Index", "Home");
+
+                    //}
+                    //else if (CurrentUser.UserType == "Manager")
+                    //{
+                    //    return RedirectToAction("GetOrderDetailsbyManger", "Home");
+
+                    //}
+                    //else if (CurrentUser.UserType == "admin")
+                    //{
+                    //    return RedirectToAction("DashBoard", "Home");
+
+                    //}
+                    //else if (CurrentUser.UserType == "Owner")
+                    //{
+                    //    return RedirectToAction("DashBoard", "Home");
+
+                    //}
+                    //else
+                    //{
+
+
+                    //    return RedirectToAction("login", "Account");
+
+                    //}
+
                 }
                 AddErrors(result);
             }
+
 
             // If we got this far, something failed, redisplay form
             return View(model);
@@ -442,7 +485,46 @@ namespace WebSiteTemplete.Controllers
                 ModelState.AddModelError("", error);
             }
         }
+        private ActionResult RedirectToLocal(string returnUrl, string b)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return RedirectToAction("login", "Account");
+            }
+            //var userId = User.Identity.GetUserId();
+            var CurrentUser = db.Users.Where(a => a.UserName == b).SingleOrDefault();
+           string a1 = CurrentUser.UserName.ToString();
+            //Session["UserType"] = a1;
+            //string a2 = Session["UserType"].ToString();
 
+            if (a1 == "Tailor")
+            {
+                return RedirectToAction("Main", "Home");
+
+            }
+            //else if (a1 == "Manager")
+            //{
+            //    return RedirectToAction("GetOrderDetailsbyManger", "Home");
+
+            //}
+            //else if (a1 == "admin")
+            //{
+            //    return RedirectToAction("DashBoard", "Home");
+
+            //}
+            //else if (a1 == "Owner")
+            //{
+            //    return RedirectToAction("DashBoard", "Home");
+
+            //}
+            //else
+            //{
+            //    return RedirectToAction("login", "Account");
+
+            //}
+           return RedirectToAction("Main", "Home");
+
+        }
         private ActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))

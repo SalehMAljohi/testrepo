@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace WebSiteTemplete.Models
@@ -48,7 +49,10 @@ namespace WebSiteTemplete.Models
 
     public class LoginViewModel
     {
+        [Display(Name = "User Name")]
         [Required]
+        public string UserName { get; set; }
+
         [Display(Name = "Email")]
         [EmailAddress]
         public string Email { get; set; }
@@ -64,12 +68,22 @@ namespace WebSiteTemplete.Models
 
     public class RegisterViewModel
     {
-        [Required]
+        [Display(Name = "User Name")]
+        public string UserName { get; set; }
+
+        [DisplayName("User Type")]
+        public string UserType { get; set; }
+
+
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
+        [StringLength(100, MinimumLength = 9)]
+        [Display(Name = "Phone Number")]
+        public string PhoneNumber { get; set; }
+
+
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]

@@ -1,63 +1,84 @@
-﻿@using WebApplication1.Models
+﻿@using WebSiteTemplete.Resources
+@using WebSiteTemplete.Models
 @model LoginViewModel
 @{
     ViewBag.Title = "Log in";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+
 }
 
-<h2>@ViewBag.Title.</h2>
-<div class="row">
-    <div class="col-md-8">
-        <section id="loginForm">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+<div class="login-page">
+    <div class="row">
+        <div class="col-md-8">
+
+            @using (Html.BeginForm("Login","Account", FormMethod.Post, new { @class = "form", role = "form" }))
             {
                 @Html.AntiForgeryToken()
-                <h4>Use a local account to log in.</h4>
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group text-center">
+                    <img src="~/images/download.png" width="150" height="150" />
+                </div>
+                @Html.ValidationSummary(true, "", new { @class = "text-warning" })
                 <div class="form-group">
-                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                    <div class="@Resource.rowdirection">
+                        @Html.Label(Resource.UserName, new { @class = " control-label" })
+                    </div>
+                    <div class="@Resource.rowdirection">
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
                     </div>
                 </div>
+
                 <div class="form-group">
-                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
+                    <div class="@Resource.rowdirection">
+                        @Html.Label(Resource.Password, new { @class = "txet-left" })
+                    </div>
+                    <div class="@Resource.rowdirection">
                         @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                     </div>
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                 </div>
                 <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <div class="checkbox">
-                            @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe)
+                    <div class="@Resource.rowdirection">
+                        <div class="checkbox ">
+                            @Html.Label(Resource.RemmberMe, new { htmlAttributes = new { id = "chkbox", @class = "form-control" } })
+                            @Html.CheckBox(Resource.RemmberMe)
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Log in" class="btn btn-default" />
+                    <div class="text-center form-group">
+                        <input type="submit" value="@Resource.Login" class="btn btn-warning" style="font-weight:bold;margin-top:30px;width:120px;" id="btnLogin" />
                     </div>
                 </div>
-                <p>
-                    @Html.ActionLink("Register as a new user", "Register")
-                </p>
+                @*<a href="https://localhost:44368/Account/Register" style="text-align :@Resource.TEXT_ALIGN;    color: #f7f2f2;">Register as a new user</a>*@
+
+                @*<p>
+                        @Html.ActionLink("Register as a new user", "Register")
+                    </p>*@
                 @* Enable this once you have account confirmation enabled for password reset functionality
                     <p>
                         @Html.ActionLink("Forgot your password?", "ForgotPassword")
                     </p>*@
             }
-        </section>
-    </div>
-    <div class="col-md-4">
-        <section id="socialLoginForm">
-            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-        </section>
+            @*</section>*@
+        </div>
+        @*<div class="col-md-4">
+                <section id="socialLoginForm">
+                    @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                </section>
+            </div>*@
     </div>
 </div>
+@*@section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@
+<style>
+    .checkbox {
+        text-align: left;
+    }
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    #Email, #Password {
+        text-align: left;
+    }
+</style>
