@@ -1,0 +1,91 @@
+﻿@using WebSiteTemplete.Resources
+
+@model WebSiteTemplete.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <div>
+            <h2>Register</h2>
+            <h4>newAccount</h4>
+        </div>
+    </div>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+        <div class="">
+            @Html.Label("UserName", new { @class = "control-label" })
+        </div>
+        <div class="">
+            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="@Resource.rowdirection">
+            @Html.Label(Resource.UserType, new { @class = "control-label" })
+        </div>
+        <div class="@Resource.rowdirection">
+            @Html.DropDownList("UserType", null, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="@Resource.rowdirection">
+            @Html.Label(Resource.Email, new { @class = "control-label", id = "Username" })
+        </div>
+        <div class="@Resource.rowdirection">
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", id = "txtUsername" })
+        </div>
+    </div> <div class="form-group">
+        <div class="@Resource.rowdirection">
+            @Html.Label("phon", new { @class = "control-label", id = "Username" })
+        </div>
+        <div class="@Resource.rowdirection">
+            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", id = "txtUsername" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="@Resource.rowdirection">
+            @Html.Label(Resource.Password, new { @class = "control-label", id = "Password" })
+        </div>
+        <div class="@Resource.rowdirection">
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control", id = "txtPassword" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="@Resource.rowdirection">
+            @Html.Label(Resource.Confirmpassword, new { @class = "control-label", id = "ConPassword" })
+        </div>
+        <div class="@Resource.rowdirection">
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", id = "txtConPassword" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="text-center form-group">
+            <input type="submit" value="@Resource.Register" class="btn btn-warning" style="font-weight:bold;margin-top:30px;width:120px;" />
+        </div>
+    </div>
+    <div class="form-group">
+        @*<a href="https://localhost:44368/Account/Login" style="text-align :@Resource.TEXT_ALIGN;color: #f7f2f2;">Login  user</a>*@
+
+    </div>
+
+}
+
+@*@section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@
+<style>
+    .checkbox {
+        text-align: left;
+    }
+
+    #Username, #Password, #ConPassword {
+        text-align: left;
+    }
+</style>

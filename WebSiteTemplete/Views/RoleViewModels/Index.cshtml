@@ -1,0 +1,303 @@
+﻿@model IEnumerable<Microsoft.AspNet.Identity.EntityFramework.IdentityRole>
+@using WebSiteTemplete.Resources
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var a = 1;
+}
+<script src="~/js/jquery-3.3.1.js"></script>
+<script src="~/js/popper.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<link href="~/css/CSSTimeLine.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<link href="~/Content/Gridmvc.css" rel="stylesheet" />
+<script src="~/Scripts/gridmvc.min.js"></script>
+
+
+<h2 style="">
+    <a href="#" class="btn btn-outline-warning" id="btnC" data-toggle="modal" onclick="showCreateModal()">Create</a>
+</h2>
+<table class="gridweb alert-warning " style="text-align :center">
+    <tr>
+        <th class="gridmvc">
+            @Html.DisplayName("PermissionTypes")
+        </th>
+        <th>
+            @Html.DisplayName("Actions")
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        a = a + 1;
+        <tr>
+            <td id="a_@a" hidden>@Html.DisplayFor(modelItem => item.Id)</td>
+            <td id="b_@a">
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+
+                <a href="#" class="btn btn-outline-warning" id="btnM @item.Id" data-toggle="modal" onclick="showUpdateModal(@a)">Edit</a> |
+                <a href="#" class="btn btn-outline-warning" id="btnD @item.Id" data-toggle="modal" onclick="showDetailsModal(@a)">Details</a> |
+                <a href="#" class="btn btn-outline-danger" id="btnDe @item.Id" data-toggle="modal" onclick="showDeleteModal(@a)">Delete</a>
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div class="modal fade" id="CreateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog grid-header" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="form-group">
+                        <label for="Name">Permission</label>
+                        <input type="text" class="form-control" id="CPerName" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="btnAdd" onclick="Add()" class="btn btn-outline-warning">Create</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">EditPermission</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+
+                    <div class="form-group">
+                        <label for="Id">ID</label>
+                        <input type="text" class="form-control" onload="this.value=removeSpaces(this.value);" style=" text-align:left; padding: 0.4em 0.4em 0.4em 0;" id="IDs" disabled="disabled" />
+                    </div>
+                    <div class="form-group">
+                        <label for="Name">Permission</label>
+                        <input type="text" style="text-align: left; padding:initial;" onload="this.value=removeSpaces(this.value);" class="form-control" id="UPerName" />
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="btnAdd" onclick="Update()" class="btn btn-outline-warning">Edit</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="DetailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+
+                    <div class="form-row">
+                        <div class="form-group col-6">
+                            <h4><i class="fa fa-user-circle"></i> Permission</h4>
+                        </div>
+                        <div class="form-group col-6">
+                            <label id="DTLPerName"></label>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="form-row">
+                        <h4><i class="fa fa-user-circle"></i> DELETEQ</h4>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-6">
+                            <h4>
+                                <i class="fa fa-trash"></i> <label for="Id">ID</label>
+                            </h4>
+                        </div>
+                        <div class="form-group col-6">
+                            <input type="text" class="form-control" onload="this.value=removeSpaces(this.value);" style="text-align: left; padding:initial;" id="IDsD" disabled="disabled" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-6">
+                            <h4><i class="fa fa-user-circle"></i> Permission</h4>
+                        </div>
+                        <div class="form-group col-6">
+                            <label id="DLTPerName"></label>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="btnAddCustomer" class="btn btn-outline-danger" onclick="Delete()">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    function showCreateModal() {
+        var row = 1;
+        console.log(row)
+
+
+
+        $('#CPerName').val();
+        $('#CreateModal').modal('show');
+    }
+    function showUpdateModal(row) {
+
+
+        console.log(row)
+
+        $("#IDs").val($("#a_" + row).text().trimStart());
+        //console.log($("#IDs").val())
+        $('#UPerName').val($("#b_" + row).text().trimStart());
+        $('#myModal').modal('show');
+    }
+
+    function showDetailsModal(row) {
+        console.log(row)
+        $('#DTLPerName').text($("#b_" + row).text());
+        $('#DetailsModal').modal('show');
+
+    }
+    function showDeleteModal(row) {
+        console.log(row)
+        $("#IDsD").val($("#a_" + row).text());
+        $('#DLTPerName').text($("#b_" + row).text());
+        $('#DeleteModal').modal('show');
+
+    }
+    function removeSpaces(string) {
+        console.log(string);
+        return string.split(' ').join('');
+    }
+    //Function for getting the Data Based upon Employee ID
+    function Add() {
+        //var i = $('#IDs').val();
+        var empObj = {
+            Name: $('#CPerName').val(),
+        };
+        empObj = JSON.stringify(empObj)
+        console.log(empObj);
+        var $j = jQuery.noConflict();
+        $.ajax({
+            type: "POST",
+            url: "/RoleViewModels/Add",
+            data: empObj,
+            processData: false,
+            contentType: "application/json",
+            dataType: "json",
+            jsonp: true,
+            success: function (result) {
+                $('#CreateModal').modal('hide');
+                $('#CPerName').val("");
+           window.location.href =  '@Url.Action("Index", "RoleViewModels")'
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+    //function for updating employee's record
+    function Update() {
+        //var i = $('#IDs').val();
+        var empObj = {
+            Id: $('#IDs').val(),
+            Name: $('#UPerName').val(),
+        };
+        empObj = JSON.stringify(empObj)
+        console.log(empObj);
+        var $j = jQuery.noConflict();
+        $.ajax({
+            type: "POST",
+            url: "/RoleViewModels/Update",
+            data: empObj,
+            processData: false,
+            contentType: "application/json",
+            dataType: "json",
+            jsonp: true,
+            success: function (result) {
+                $('#myModal').modal('hide');
+                $("#IDs").val("");
+                $('#UPerName').val("");
+           window.location.href =  '@Url.Action("Index", "RoleViewModels")'
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+    function Delete() {
+        //var i = $('#IDs').val();
+        var empObj = {
+
+            id: $('#IDsD').val(),
+        };
+        empObj = JSON.stringify(empObj)
+        console.log(empObj);
+        var $j = jQuery.noConflict();
+        $.ajax({
+            type: "POST",
+            url: "/RoleViewModels/Delete",
+            data: empObj,
+            processData: false,
+            contentType: "application/json",
+            dataType: "json",
+            jsonp: true,
+            success: function (result) {
+                $('#DeleteModal').modal('hide');
+                $('#IDsD').val("");
+          window.location.href =  '@Url.Action("Index", "RoleViewModels")'
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+
+</script>

@@ -1,0 +1,122 @@
+﻿
+
+.gridweb {
+    width: 100% !important;
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    background-color: #fff;
+    text-align: center;
+}
+
+    .gridweb th {
+        background-color: #f8b739 !important;
+        font-weight: bold;
+        font-size: 20px;
+        color: #000;
+        border: 1px solid #000;
+    }
+
+     .gridweb td {
+        font-size:15px !important;
+        padding: 5px;
+        border: 1px solid #ccc;
+    }
+
+    .gridweb, .gridweb table td {
+        border: 0px solid #ccc;
+    }
+
+        .gridweb th a, .gridweb th a:visited {
+            color: #333;
+        }
+
+
+#timeline-wrap {
+    
+/*    top: 100;
+*/    
+position: relative;
+}
+
+#timeline {
+    height: 10px;
+    width: 100%;
+    background-color: #ffc107b3;
+    position: relative;
+}
+
+.marker {
+    z-index: 1000;
+    color: #6c757d;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 1.4em;
+    text-align: center;
+    position: absolute;
+    margin-left: -25px;
+    background-color: #ffc107;
+    border-radius: 50%;
+}
+
+    .marker:hover {
+        -moz-transform: scale(1.2);
+        -webkit-transform: scale(1.2);
+        -o-transform: scale(1.2);
+        -ms-transform: scale(1.2);
+        transform: scale(1.2);
+        -webkit-transition: all 300ms ease;
+        -moz-transition: all 300ms ease;
+        -ms-transition: all 300ms ease;
+        -o-transition: all 300ms ease;
+        transition: all 300ms ease;
+    }
+
+
+.timeline-icon.one {
+    background-color: #ffc107 ;
+}
+
+.timeline-icon.two {
+    background-color: #ffc107 !;
+}
+
+.timeline-icon.three {
+    background-color: #ffc107 ;
+}
+
+.timeline-icon.four {
+    background-color: #ffc107 ;
+}
+.timeline-icon.five {
+    background-color: #ffc107 ;
+}
+.timeline-icon.six {
+    background-color: #ffc107 ;
+}
+.mfirst {
+    top: -25px;
+}
+
+.m2 {
+    top: -25px;
+    left:20%
+}
+
+.m3 {
+    top: -25px;
+    left: 40%
+}
+.m4 {
+    top: -25px;
+    left: 60%
+}
+.m5 {
+    top: -25px;
+    left: 80%
+}
+.mlast {
+    top: -25px;
+    left: 100%
+}
+

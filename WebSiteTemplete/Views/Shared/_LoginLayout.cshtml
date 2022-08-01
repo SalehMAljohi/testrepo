@@ -1,0 +1,84 @@
+﻿@using WebSiteTemplete.Resources
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <title></title>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/assets/css/Login-Form-Dark.css">
+    <script src="~/assets/js/jquery-3.5.1.min.js"></script>
+    <script src="~/assets/js/bootstrap.bundle.min.js"></script>
+
+    <link href="~/css/LoginStyleSheet.css" rel="stylesheet" />
+    <style>
+        label {
+    color: white;
+    font-weight: bold;
+    direction: @Resource.Direction;
+}
+    </style>
+
+</head>
+<body dir="rtl" style="direction:@Resource.Direction">
+    <div>
+
+
+        <div style="padding:5px;width:150px">
+            <select id="languages" class="form-control" onchange="setLanguage(this.value);">
+                <option value="en">English</option>
+                <option value="ar">عربي</option>
+            </select>
+        </div>
+        @RenderBody()
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script>
+        $(document).ready(function () {
+            var lang = $.cookie("Language");
+            if (lang == null) {
+                $("#languages").val("en");
+            }
+            if (lang == "en") {
+                $("#languages").val("en");
+            }
+            if (lang == "ar") {
+                $("#languages").val("ar");
+            }
+        });
+        function setLanguage(val) {
+            
+            setCookie("Language", val, 365);
+            location.reload();
+      
+        }
+        function setCookie(name, value, days) {
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "") + expires + ";path=/";
+        }
+        $(function () {
+            //Read the cookie, if it has been previously set
+            //var language = $.cookie('Language');
+
+            //Set language to previously set value
+            //!language || $('#Languages').val(language);
+
+            //Set up an event listener to update the cookie whenever language is changed
+            function change() {
+                language = this.value
+                $.cookie('Language', language);
+                return false;
+            }
+                //Set cookie to default language when page loads;
+                //.change();
+
+            //alert(lang);
+        });
+    </script>
+</body>
+</html>

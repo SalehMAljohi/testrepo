@@ -1,0 +1,24 @@
+﻿@using Microsoft.AspNet.Identity
+@using WebSiteTemplete.Models
+@using WebSiteTemplete.Resources
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        //var db = new ApplicationDbContext();
+        //var UserId = User.Identity.GetUserId();
+        //var CurrentUser = db.Users.Where(a => a.Id == UserId).SingleOrDefault();
+        @Html.AntiForgeryToken()
+
+        @Html.ActionLink("hello" +":"+ User.Identity.GetUserName() + "!", "Login", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })
+
+        <a href="javascript:document.getElementById('logoutForm').submit()" class="btn btn-outline-warning">Log off</a>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li class="nav-item">@Html.ActionLink(Resource.Register, "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "nav-link" })</li>
+        <li class="nav-item">@Html.ActionLink(Resource.Login, "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "nav-link" })</li>
+    </ul>
+}
