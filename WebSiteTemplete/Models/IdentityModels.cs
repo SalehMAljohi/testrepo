@@ -40,5 +40,7 @@ namespace WebSiteTemplete.Models
         public System.Data.Entity.DbSet<WebSiteTemplete.Models.MediaSubTypes> MediaSubTypes { get; set; }
         public System.Data.Entity.DbSet<WebSiteTemplete.Models.Titles> Titles { get; set; }
         public System.Data.Entity.DbSet<WebSiteTemplete.Models.ParaGraphes> ParaGraphes { get; set; }
+
+        public System.Data.Entity.DbSet<WebSiteTemplete.Models.AdminViewModels> AdminViewModels { get; set; }
     }
 }

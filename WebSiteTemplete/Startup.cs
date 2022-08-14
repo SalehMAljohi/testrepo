@@ -15,7 +15,6 @@ namespace WebSiteTemplete
         {
             ConfigureAuth(app);
             CreateDefaultRolesAndUsers();
-
         }
         public void CreateDefaultRolesAndUsers()
         {

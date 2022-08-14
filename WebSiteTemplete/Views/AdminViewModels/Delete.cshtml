@@ -1,0 +1,153 @@
+﻿@model WebSiteTemplete.Models.AdminViewModels
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>AdminViewModels</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MediaTypeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MediaTypeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MediaTypeAName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MediaTypeAName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MediaTypeEName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MediaTypeEName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.url)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.url)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MediaTypeID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MediaTypeID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ParaGrapheName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ParaGrapheName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ParaGrapheAName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ParaGrapheAName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ParaGrapheEName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ParaGrapheEName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TextTypeID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TextTypeID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TextTypeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TextTypeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TextTypeAName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TextTypeAName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TextTypeEName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TextTypeEName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TitleName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TitleName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TitleAName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TitleAName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TitleEName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TitleEName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
