@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -22,13 +24,6 @@ namespace WebSiteTemplete.Controllers
             return View(db.MediaTypes.ToList());
         }
 
-        // GET: AdminViewModels
-        public ActionResult MainManagement()
-        {
-            ViewBag.UserType = "admin";
-            Session["UserType"] = "admin";
-            return View(db.MediaTypes.ToList());
-        }
         // GET: AdminViewModels/Details/5
         public ActionResult Details(int? id)
         {
@@ -127,6 +122,24 @@ namespace WebSiteTemplete.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Add(MediaSubTypes mediasubtypes, HttpPostedFileBase upload)
+        {
+            if (ModelState.IsValid)
+            {
+                string path = Path.Combine(Server.MapPath("~/Uploads"), upload.FileName);
+                upload.SaveAs(path);
+                mediasubtypes.url = upload.FileName;
+                mediasubtypes.UserId = User.Identity.GetUserId();
+                db.MediaSubTypes.Add(mediasubtypes);
+                db.SaveChanges();
+                return RedirectToAction("MainManagement", "PageDetails");
+            }
+
+            ViewBag.MediaTypeID = new SelectList(db.MediaSubTypes, "Id", "CategoryName", mediasubtypes.MediaTypeID);
+            return View(mediasubtypes);
         }
     }
 }

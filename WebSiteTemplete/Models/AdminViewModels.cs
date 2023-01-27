@@ -11,10 +11,17 @@ namespace WebSiteTemplete.Models
         public string MediaTypeName { get; set; }
         public string MediaTypeAName { get; set; }
         public string MediaTypeEName { get; set; }
+        public HttpPostedFileWrapper uploadurl { get; set; }
         public string url { get; set; }
         public string UserId { get; set; }
         public Nullable<int> MediaTypeID { get; set; }
         public string ParaGrapheName { get; set; }
+        public string ContentID{ get; set; }
+        public string PageID { get; set; }
+        public string ContentName { get; set; }
+        public string PageName { get; set; }
+        public string PageAName { get; set; }
+        public string PageEName { get; set; }
         public string ParaGrapheAName { get; set; }
         public string ParaGrapheEName { get; set; }
         public Nullable<int> TextTypeID { get; set; }

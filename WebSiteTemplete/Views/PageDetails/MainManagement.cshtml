@@ -1,0 +1,1012 @@
+﻿@model IEnumerable<WebSiteTemplete.Models.PageDetails>
+@using WebSiteTemplete.Resources
+@{
+    ViewBag.Title = "MainManagement";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="col-12" id="main-fixed-top">
+        <nav class="navbar navbar-expand-lg navbar-dark  py-3" style="background: var(--main-color);">
+            <div class="container" style="direction: ltr;">
+                <div class="collapse  navbar-collapse py-4 py-md-0" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-md-auto mb-2 mb-lg-0 px-0" style="direction:rtl">
+
+                        @foreach (var urlpages in ViewBag.PageInfolist)
+                        {
+                            <li>
+                                <a class="nav-link active" aria-current="page" style="direction: ltr;color:black;" href="/Home/Main/@urlpages.ID">@urlpages.PageName</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+@{ var a = ViewBag.PageInfo;
+    var b = 0;}
+@foreach (var pageinfo in ViewBag.ContentInfo) {
+
+    if (pageinfo.PageID == a)
+    {
+    <div class="col-12" style="text-align:center;" id="content1">
+        <div class="container mx-auto">
+            <h1>@pageinfo.PageInfo.PageAName </h1>
+
+            @foreach (var item1 in ViewBag.ContentInfo)
+            {
+                if (item1.ContentName == "header" && item1.PageID== ViewBag.PageInfo)
+                {
+                    b++;
+
+                    <div class="col-12" styl e="text-align:center;" id="content1">
+                        <h4>@item1.ContentName</h4>
+                        <br />
+                        <label><input name="sport" type="radio" id="rasl" onclick="bslaide()" /> Slaide</label>
+                        <label><input name="sport" type="radio" id="ravd" onclick="bvideo()" /> Video</label>
+
+                        <div id="btncs">
+                            <a href="#" class="btn btn-outline-warning" id="btnC" data-toggle="modal" onclick="showSlaideModal(0)">Create</a>
+
+                            @*<a href="#" class="btn btn-outline-warning" onclick="(0)" data-toggle="modal"></a>*@
+
+                        </div>
+                        <div id="btncv">
+                            <a href="#" class="btn btn-outline-warning" id="btnC" data-toggle="modal" onclick="showVideoModal(0)">Create</a>
+
+                        </div>
+                        <table id="tslide" btsC class="table table-bordered alert-warning col-12">
+                            <thead>
+                                <tr>
+                                    <th class="col-1">ID </th>
+                                    <th class="col-3">img </th>
+                                    <th class="col-3" style="text-align: left;">
+                                        ParagraghOnSlide
+                                    </th>
+                                    <th class="col-1s" style="text-align: left;">
+                                        TitleOnSlide
+                                    </th>
+
+                                    <th class="col-4">Actions </th>
+                                </tr>
+                            </thead>
+                            <tbody id="selectedBody">
+                                @foreach (var item in Model)
+                                {
+                                    if (item.MediaTypeID == null)
+                                    { }
+                                    else if (item.MediaSubTypes.MediaTypeID == 1 && item.PageID == a)
+                                    {
+                                        <tr>
+                                            <td id="m_@Html.Raw(item.MediaSubTypes.ID)" style="text-align: left;">
+                                                @Html.DisplayFor(modelItem => item.MediaSubTypes.ID)
+                                            </td>
+                                            <td id="h_@Html.Raw(item.ID)">
+                                                <img src="~/UploadFiles/@Html.DisplayFor(modelItem => item.MediaSubTypes.url)"
+                                                     class="thumbnail" style="height:80px;" />
+                                            </td>
+                                            <td id="g_@Html.Raw(item.ID)" style="text-align: center;">
+                                                <h6> @Html.DisplayFor(modelItem => item.Titles.TitleName)</h6>
+                                            </td>
+                                            <td id="g_@Html.Raw(item.ID)" style="text-align: center;">
+                                                <h6> @Html.DisplayFor(modelItem => item.ParaGraphes.ParaGrapheName)</h6>
+                                            </td>
+                                            <td>
+                                                <a href="#" class="btn btn-outline-warning" id="btnM @item.MediaSubTypes.ID" data-toggle="modal" onclick="showUpdateSlideModal(@item.MediaSubTypes.ID)">@Resource.Edit</a> |
+                                                <a href="#" class="btn btn-outline-warning" id="btnD @item.MediaSubTypes.ID" data-toggle="modal" onclick="showDetailSlideModal(@item.MediaSubTypes.ID)">@Resource.Details</a> |
+                                                <a href="#" class="btn btn-outline-danger" id="btnDe @item.MediaSubTypes.ID" data-toggle="modal" onclick="showDeleteSlideModal(@item.MediaSubTypes.ID)">@Resource.Delete</a>
+                                            </td>
+
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                        <table id="tvideo" class="table table-bordered alert-warning col-12">
+                            <thead>
+                                <tr>
+                                    <th class="col-1">ID </th>
+                                    <th class="col-5">video </th>
+                                    <th class="col-3">Actions </th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="selectedBody">
+                                @foreach (var item in Model)
+                                {
+                                    if (item.MediaTypeID == null)
+                                    { }
+                                    else if (item.MediaSubTypes.MediaTypeID == 2 && item.PageID == a)
+                                    {
+                                        <tr>
+                                            <td id="m_@Html.Raw(item.MediaSubTypes.ID)" style="text-align: left;">
+                                                @Html.DisplayFor(modelItem => item.MediaSubTypes.ID)
+                                            </td>
+                                            <td id="g_@Html.Raw(item.ID)" style="text-align: left;" hidden>
+                                                @Html.DisplayFor(modelItem => item.ID)
+                                            </td>
+                                            <td id="h_@Html.Raw(item.ID)">
+                                                <video controls width="150" height="150">
+                                                    <source src="~/UploadFiles/@Html.DisplayFor(modelItem => item.MediaSubTypes.url)" type="video/mp4">
+                                                    <source src="~/UploadFiles/@Html.DisplayFor(modelItem => item.MediaSubTypes.url)" type="video/ogg">
+                                                    Your browser does not support the video tag.
+                                                </video>
+                                            </td>
+
+                                            <td>
+                                                <a href="#" class="btn btn-outline-warning" id="btnM @item.MediaSubTypes.ID" data-toggle="modal" onclick="showUpdateSlideModal(@item.MediaSubTypes.ID)">@Resource.Edit</a> |
+                                                <a href="#" class="btn btn-outline-warning" id="btnD @item.MediaSubTypes.ID" data-toggle="modal" onclick="showDetailSlideModal(@item.MediaSubTypes.ID)">@Resource.Details</a> |
+                                                <a href="#" class="btn btn-outline-danger" id="btnDe @item.MediaSubTypes.ID" data-toggle="modal" onclick="showDeleteSlideModal(@item.MediaSubTypes.ID)">@Resource.Delete</a>
+                                            </td>
+
+                                        </tr>
+                                    }
+                                }
+
+                            <tbody id="selectedBody">
+                            </tbody>
+                        </table>
+                    </div>
+
+
+
+                }
+
+                else if (item1.ContentName == "Card" && item1.PageID == ViewBag.PageInfo)
+                {
+                    b++;
+                    <hr />
+                    <h4>@item1.ContentName</h4>
+                    <br />
+                    <a href="#" class="btn btn-outline-warning" data-toggle="modal" onclick="showCardModal(0)">Create</a>
+                    <table id="tcard" class="table table-bordered alert-warning col-12">
+                        <thead>
+                            <tr>
+                                <th class="col-1">ID </th>
+                                <th class="col-5">Card </th>
+                                <th class="col-3">Actions </th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="selectedBody">
+                            @foreach (var item in Model)
+                            {
+                                if (item.MediaTypeID == null)
+                                { }
+                                else if (item.MediaSubTypes.MediaTypeID == 3 && item.PageID == a)
+                                {
+                                    <tr>
+                                        <td id="m_@Html.Raw(item.MediaSubTypes.ID)" style="text-align: left;">
+                                            @Html.DisplayFor(modelItem => item.MediaSubTypes.ID)
+                                        </td>
+                                        <td id="g_@Html.Raw(item.ID)" style="text-align: left;" hidden>
+                                            @Html.DisplayFor(modelItem => item.ID)
+                                        </td>
+                                        <td id="h_@Html.Raw(item.ID)">
+                                            <img src="~/UploadFiles/@Html.DisplayFor(modelItem => item.MediaSubTypes.url)"
+                                                 class="thumbnail" style="height:80px;" />
+                                        </td>
+                                        <td id="g_@Html.Raw(item.ID)" style="text-align: left;" hidden>
+                                            @Html.DisplayFor(modelItem => item.ParaGraphes.ParaGrapheAName)
+                                        </td>
+                                        <td>
+                                            <a href="#" class="btn btn-outline-warning" id="btnM @item.MediaSubTypes.ID" data-toggle="modal" onclick="showUpdateSlideModal(@item.MediaSubTypes.ID)">@Resource.Edit</a> |
+                                            <a href="#" class="btn btn-outline-warning" id="btnD @item.MediaSubTypes.ID" data-toggle="modal" onclick="showDetailSlideModal(@item.MediaSubTypes.ID)">@Resource.Details</a> |
+                                            <a href="#" class="btn btn-outline-danger" id="btnDe @item.MediaSubTypes.ID" data-toggle="modal" onclick="showDeleteSlideModal(@item.MediaSubTypes.ID)">@Resource.Delete</a>
+                                        </td>
+
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+
+                }
+
+                else if (item1.ContentName == "Paragraph" && item1.PageID == ViewBag.PageInfo)
+                {
+                    b++;
+                    <hr />
+                    <h4>@item1.ContentName</h4>
+                    <br />
+                    <a href="#" class="btn btn-outline-warning" data-toggle="modal" onclick="showParagraphModal(0)">Create</a>
+                    <table id="tcard" class="table table-bordered alert-warning col-12">
+                        <thead>
+                            <tr>
+                                <th class="col-1">ID </th>
+                                <th class="col-2">Titles </th>
+                                <th class="col-5">ParaGraphes </th>
+                                <th class="col-4">Actions </th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="selectedBody">
+                            @foreach (var item in Model)
+                            {
+                                if (item.MediaSubTypeID == null && item.ParaGraphesID != null && item.TitleID != null && item.PageID == a)
+                                {
+                                    <tr>
+                                        <td id="g_@Html.Raw(item.ID)" style="text-align: center;">
+                                            <h6> @Html.DisplayFor(modelItem => item.ID)</h6>
+                                        <td id="g_@Html.Raw(item.ID)" style="text-align: center;">
+                                            <h6> @Html.DisplayFor(modelItem => item.Titles.TitleName)</h6>
+                                        </td>
+                                        <td id="g_@Html.Raw(item.ID)" style="text-align: center;">
+                                            <h6> @Html.DisplayFor(modelItem => item.ParaGraphes.ParaGrapheName)</h6>
+                                        </td>
+                                        <td>
+                                            <a href="#" class="btn btn-outline-warning" id="btnM @item.ID" data-toggle="modal" onclick="showUpdateSlideModal(@item.ID)">@Resource.Edit</a> |
+                                            <a href="#" class="btn btn-outline-warning" id="btnD @item.ID" data-toggle="modal" onclick="showDetailSlideModal(@item.ID)">@Resource.Details</a> |
+                                            <a href="#" class="btn btn-outline-danger" id="btnDe @item.ID" data-toggle="modal" onclick="showDeleteSlideModal(@item.ID)">@Resource.Delete</a>
+                                        </td>
+
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+
+                }
+
+                else if (item1.ContentName == "CaClients" && item1.PageID == ViewBag.PageInfo)
+                {
+                    b++;
+                    <hr />
+                    <h4>@item1.ContentName</h4>
+                    <br />
+                    <a href="#" class="btn btn-outline-warning" data-toggle="modal" onclick="showCardModal(0)">Create</a>
+                    <table id="tcard" class="table table-bordered alert-warning col-12">
+                        <thead>
+                            <tr>
+                                <th class="col-1">ID </th>
+                                <th class="col-5">Card </th>
+                                <th class="col-3">Actions </th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="selectedBody">
+                            @foreach (var item in Model)
+                            {
+                                if (item.MediaSubTypes.MediaTypeID == 3 && item.PageID == a)
+                                {
+                                    <tr>
+                                        <td id="m_@Html.Raw(item.MediaSubTypes.ID)" style="text-align: left;">
+                                            @Html.DisplayFor(modelItem => item.MediaSubTypes.ID)
+                                        </td>
+                                        <td id="g_@Html.Raw(item.ID)" style="text-align: left;" hidden>
+                                            @Html.DisplayFor(modelItem => item.ID)
+                                        </td>
+                                        <td id="h_@Html.Raw(item.ID)">
+                                            <img src="~/UploadFiles/@Html.DisplayFor(modelItem => item.MediaSubTypes.url)"
+                                                 class="thumbnail" style="height:80px;" />
+                                        </td>
+                                        <td id="g_@Html.Raw(item.ID)" style="text-align: left;" hidden>
+                                            @Html.DisplayFor(modelItem => item.ParaGraphes.ParaGrapheAName)
+                                        </td>
+                                        <td>
+                                            <a href="#" class="btn btn-outline-warning" id="btnM @item.MediaSubTypes.ID" data-toggle="modal" onclick="showUpdateSlideModal(@item.MediaSubTypes.ID)">@Resource.Edit</a> |
+                                            <a href="#" class="btn btn-outline-warning" id="btnD @item.MediaSubTypes.ID" data-toggle="modal" onclick="showDetailSlideModal(@item.MediaSubTypes.ID)">@Resource.Details</a> |
+                                            <a href="#" class="btn btn-outline-danger" id="btnDe @item.MediaSubTypes.ID" data-toggle="modal" onclick="showDeleteSlideModal(@item.MediaSubTypes.ID)">@Resource.Delete</a>
+                                        </td>
+
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+
+                }
+
+                else if (item1.ContentName == "Video" && item1.PageID == ViewBag.PageInfo)
+                {
+                    b++;
+                    <hr />
+                    <h4>@item1.ContentName</h4>
+                    <br />
+                    <a href="#" class="btn btn-outline-warning" data-toggle="modal" onclick="showCardModal(0)">Create</a>
+                    <table id="tcard" class="table table-bordered alert-warning col-12">
+                        <thead>
+                            <tr>
+                                <th class="col-1">ID </th>
+                                <th class="col-5">Card </th>
+                                <th class="col-3">Actions </th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="selectedBody">
+                            @foreach (var item in Model)
+                            {
+                                if (item.MediaSubTypes.MediaTypeID == 3 && item.PageID == a)
+                                {
+                                    <tr>
+                                        <td id="m_@Html.Raw(item.MediaSubTypes.ID)" style="text-align: left;">
+                                            @Html.DisplayFor(modelItem => item.MediaSubTypes.ID)
+                                        </td>
+                                        <td id="g_@Html.Raw(item.ID)" style="text-align: left;" hidden>
+                                            @Html.DisplayFor(modelItem => item.ID)
+                                        </td>
+                                        <td id="h_@Html.Raw(item.ID)">
+                                            <img src="~/UploadFiles/@Html.DisplayFor(modelItem => item.MediaSubTypes.url)"
+                                                 class="thumbnail" style="height:80px;" />
+                                        </td>
+                                        <td id="g_@Html.Raw(item.ID)" style="text-align: left;" hidden>
+                                            @Html.DisplayFor(modelItem => item.ParaGraphes.ParaGrapheAName)
+                                        </td>
+                                        <td>
+                                            <a href="#" class="btn btn-outline-warning" id="btnM @item.MediaSubTypes.ID" data-toggle="modal" onclick="showUpdateSlideModal(@item.MediaSubTypes.ID)">@Resource.Edit</a> |
+                                            <a href="#" class="btn btn-outline-warning" id="btnD @item.MediaSubTypes.ID" data-toggle="modal" onclick="showDetailSlideModal(@item.MediaSubTypes.ID)">@Resource.Details</a> |
+                                            <a href="#" class="btn btn-outline-danger" id="btnDe @item.MediaSubTypes.ID" data-toggle="modal" onclick="showDeleteSlideModal(@item.MediaSubTypes.ID)">@Resource.Delete</a>
+                                        </td>
+
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+
+                }
+
+                
+            }
+            @if (b == 0)
+            { <h1>No Content</h1>}
+
+
+        </div>
+    </div>
+        
+        a=0;
+    }
+
+}
+   
+
+ <div class="col-12" style="text-align:center;">
+        <hr />
+        <input id="btnAdd" class="btn btn-outline-warning" type="button" value="Add" onclick="AddTextBox()" />
+        <br />
+        <br />
+        <div id="TextBoxContainer" style="text-align:center;">
+            <!--Textboxes will be added here -->
+        </div>
+
+
+    </div>
+
+  
+    @*//////////////////////////////////////////////////////////////////////*@
+
+    <div class="modal fade" id="SlaideModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="form-group">
+
+                            <div class="alert alert-danger" id="err_div" style="display:none">
+                                <span id="view_err">
+
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Name">Title</label>
+                            <input type="text" class="form-control" id="TitleOnSlide" />
+                            <label for="Name">Paragragh</label>
+                            <textarea row="4" class="form-control" id="ParagraghOnSlide"></textarea>
+                            <input type="file" name="uploadN" id="Slideimage" accept="image/*" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="AddBtnV" onclick="AddCon1()" class="btn btn-primary">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="VideoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="form-group">
+
+                            <div class="alert alert-danger" id="err_div" style="display:none">
+                                <span id="view_err">
+
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Name">NeckStyle</label>
+                            <input type="text" class="form-control" id="CSlideStyle" />
+                            <input type="file" name="uploadN" id="Slidevideo" accept="video/*" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="AddBtn" onclick="AddCon1()" class="btn btn-primary">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="CardModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="form-group">
+
+                            <div class="alert alert-danger" id="err_div" style="display:none">
+                                <span id="view_err">
+
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="file" name="uploadN" id="Cardimage" accept="image/*" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="AddBtnV" onclick="AddCon1()" class="btn btn-primary">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="ParagraphModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="form-group">
+
+                            <div class="alert alert-danger" id="err_div" style="display:none">
+                                <span id="view_err">
+
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Name">Title</label>
+                            <input type="text" class="form-control" id="TitlePar" />
+                            <label for="Name">Paragragh</label>
+                            <textarea row="4" class="form-control" id="ParagraghPar"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="AddBtnV" onclick="AddPar()" class="btn btn-primary">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*//////////////////////////////////////////////////////////////////////*@
+    <div class="modal fade" id="EditSlideModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">@Resource.KhabnahStyle</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+
+                        <div class="form-group">
+                            <label for="Id">ID</label>
+                            <input type="text" class="form-control" id="IDsKBNH" disabled="disabled" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Name">@Resource.KhabnahStyle</label>
+                            <input type="text" class="form-control" disabled="disabled" id="UKhabnahStyle" />
+                            <img src="~/UploadFiles/" id="imgUKH"
+                                 class="thumbnail" style="width:108px;height:108px;" />
+                            <input type="file" name="upload" id="UKhabnahimage" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@Resource.Close</button>
+                    <button type="button" id="myKHimage" onclick="UpdateKBNH()" class="btn btn-primary">@Resource.Edit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="DetailSlideModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="form-row">
+                            <div class="form-group col-6">
+                                <h4><i class="fa fa-user-circle"></i> @Resource.KhabnahStyle</h4>
+                            </div>
+                            <div class="form-group col-6">
+                                <label id="DTLKhabnahStyle"></label>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-6">
+                                <h4><i class="fa fa-user-circle"></i> @Resource.KhabnahStyle </h4>
+                            </div>
+                            <div class="form-group col-6">
+                                <img src="~/Uploads/" id="imgKH"
+                                     class="thumbnail" style="width:148px;height:148px;" />
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@Resource.Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="DeleteSlideModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="form-row">
+                            <h4><i class="fa fa-user-circle"></i> @Resource.DELETEQ</h4>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-6">
+                                <h4>
+                                    <i class="fa fa-trash"></i> <label for="Id">ID</label>
+                                </h4>
+                            </div>
+                            <div class="form-group col-6">
+                                <input type="text" class="form-control" id="IDsDN" disabled="disabled" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-6">
+                                <h4><i class="fa fa-user-circle"></i> @Resource.NeckStyle</h4>
+                            </div>
+                            <div class="form-group col-6">
+                                <label id="DLTNeckStyle"></label>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-6">
+                                <h4><i class="fa fa-user-circle"></i> @Resource.NeckStyle</h4>
+                            </div>
+                            <div class="form-group col-6">
+                                <img src="~/Uploads/" id="imgDN"
+                                     class="thumbnail" style="width:108px;height:108px;" />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@Resource.Close</button>
+                    <button type="button" id="btnAddCustomer" class="btn btn-primary" onclick="DeleteSlide()">@Resource.Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*//////////////////////////////////////////////////////////////////////*@
+    <script src="~/js/jquery.min_3.6.0.js"></script>
+    <script src="~/js/popper.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+
+    <script>
+    window.onload = onloadpage;
+
+    function onloadpage() {
+        document.getElementById("btncs").style.display = "none";
+        document.getElementById("tslide").style.display = "none";
+        document.getElementById("btncv").style.display = "none";
+        document.getElementById("tvideo").style.display = "none";
+    }
+    function bslaide() {
+        document.getElementById("content1").style.borderRadius = "10px";
+        document.getElementById("btncs").style.display = "";
+        document.getElementById("tslide").style.display = "";
+        document.getElementById("btncv").style.display = "none";
+        document.getElementById("tvideo").style.display = "none";
+    }
+    function bvideo() {
+        document.getElementById("content1").style.transition= "background 1s";
+        document.getElementById("btncs").style.display = "none";
+        document.getElementById("tslide").style.display = "none";
+        document.getElementById("btncv").style.display = "";
+        document.getElementById("tvideo").style.display = "";
+    }
+    /////////////////////////////////////////////////////////////////
+
+    /////////////////////////////////////////////////////////////////
+        function showSlaideModal(row) {
+        $("#CSlideStyle").val($(row).closest('tr').attr('order'));
+        //$("#MeasurmentModal").modal();
+        $('#SlaideModal').modal('show');
+        //$('#MeasurmentModal').appendTo("body")
+        }
+
+        function showVideoModal(row) {
+        $("#videofile").val($(row).closest('tr').attr('order'));
+        //$("#MeasurmentModal").modal();
+        $('#VideoModal').modal('show');
+        //$('#MeasurmentModal').appendTo("body")
+        }
+        function showCardModal(row) {
+            $("#CSlideStyle").val($(row).closest('tr').attr('order'));
+            //$("#MeasurmentModal").modal();
+            $('#CardModal').modal('show');
+            //$('#MeasurmentModal').appendTo("body")
+        }
+        function showParagraphModal(row) {
+            $("#CParagraphStyle").val($(row).closest('tr').attr('order'));
+            //$("#MeasurmentModal").modal();
+            $('#ParagraphModal').modal('show');
+            //$('#MeasurmentModal').appendTo("body")
+        }
+        ////////////////////////////////////////////////////////////
+    function showUpdateSlideModal(row) {
+
+        console.log(row)
+
+        $("#IDsKBNH").val(row);
+        //console.log($("#IDs").val())
+        $('#UKhabnahStyle').val($("#m_" + row).text());
+        $('#imgUKH').attr("src", "/UploadFiles/" + $('#UKhabnahStyle').val());
+        $('#EditSlideModal').modal('show');
+    }
+    function showDetailSlideModal(row) {
+        console.log(row)
+        $('#DTLKhabnahStyle').text( row);
+        $('#imgKH').attr("src", "/UploadFiles/" + $('#DTLKhabnahStyle').text());
+        $('#DetailSlideModal').modal('show');
+
+    }
+    function showDeleteSlideModal(row) {
+        console.log(row)
+        $('#IDsDN').val( row);
+        $('#DLTNeckStyle').text( row);
+        $('#imgDN').attr("src", "/UploadFiles/" + $('#DLTNeckStyle').text());
+        $('#DeleteSlideModal').modal('show');
+
+    }
+    /////////////////////////////////////////////////////////////////
+    function AddCon1() {
+        var data = new FormData();
+
+        if ($("#Slideimage").val() == "" && $("#Slidevideo" && $("#Cardimage").val() == "").val() == "") {
+            $("#err_div").fadeIn();
+            $("#view_err").append("ارجاء عرض صوره");
+            return false;
+
+
+        } else if ($("#Slideimage").val() != "") {
+           // DeleteSlideS(2)
+            var fileN = $('#Slideimage').get(0).files;
+            var TitleOnSlide = $('#TitleOnSlide').val();
+            var ParagraghOnSlide = $('#ParagraghOnSlide').val();
+            var b =parseInt(@ViewBag.PageInfo);
+            data.append("uploadurl", fileN[0]);
+            data.append("MediaTypeID", 1);
+            data.append("TitleName",TitleOnSlide);
+            data.append("ParaGrapheName", ParagraghOnSlide);
+            data.append("PageID", b)
+
+
+            var $j = jQuery.noConflict();
+            $.ajax({
+                type: "POST",
+                url: "/PageDetails/AddCon1",
+                data: data,
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+                //contentType: "application/json",
+                //dataType: "json",
+                jsonp: true,
+                success: function (result) {
+
+                    window.location.href = '@Url.Action("MainManagement", "PageDetails")'
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+
+        }
+        else if ($("#Slidevideo").val() != "") {
+            DeleteSlideSModal(1)
+            var fileN = $('#Slidevideo').get(0).files;
+            var b =parseInt(@ViewBag.PageInfo);
+            data.append("uploadurl", fileN[0]);
+            data.append("MediaTypeID", 2);
+            data.append("PageID", b)
+
+            var $j = jQuery.noConflict();
+            $.ajax({
+                type: "POST",
+                url: "/PageDetails/AddCon1",
+                data: data,
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+                //contentType: "application/json",
+                //dataType: "json",
+                jsonp: true,
+                success: function (result) {
+
+                    window.location.href = '@Url.Action("MainManagement", "PageDetails")'
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+
+            alert("hello here ")
+        }
+
+          else if ($("#Cardimage").val() != "") {
+           // DeleteSlideS(2)
+            var fileN = $('#Cardimage').get(0).files;
+            var b =parseInt(@ViewBag.PageInfo);
+            data.append("uploadurl", fileN[0]);
+            data.append("MediaTypeID", 3);
+            data.append("PageID", b)
+
+
+            var $j = jQuery.noConflict();
+            $.ajax({
+                type: "POST",
+                url: "/PageDetails/AddCon2",
+                data: data,
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+                //contentType: "application/json",
+                //dataType: "json",
+                jsonp: true,
+                success: function (result) {
+
+                    window.location.href = '@Url.Action("MainManagement", "PageDetails")'
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+
+        }
+        }
+        function AddPar() {
+     var data = new FormData();
+
+            if ($("#ParagraghPar").val() == "" && $("#TitlePar").val()=="") {
+            $("#err_div").fadeIn();
+            $("#view_err").append("ارجاء ادخل نص");
+            return false;
+
+
+            }
+            else if ($("#ParagraghPar").val() != "" && $("#TitlePar" != "")) {
+           // DeleteSlideS(2)
+                var TitlePar = $('#TitlePar').val();
+                var ParagraghPar = $('#ParagraghPar').val();
+                var b =parseInt(@ViewBag.PageInfo);
+                data.append("TitleName", TitlePar);
+                data.append("ParaGrapheName", ParagraghPar);
+                data.append("PageID", b)
+
+
+            var $j = jQuery.noConflict();
+            $.ajax({
+                type: "POST",
+                url: "/PageDetails/AddPar",
+                data: data,
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+                //contentType: "application/json",
+                //dataType: "json",
+                jsonp: true,
+                success: function (result) {
+
+                    window.location.href = '@Url.Action("MainManagement", "PageDetails")'
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+
+        }
+    }
+    function UpdateKBNH() {
+        //var i = $('#IDs').val();
+            var data = new FormData();
+            //var fileN = document.getElementById("CNeckimage").files.length;
+            var fileN = $('#UKhabnahimage').get(0).files;
+            data.append("uploadKH", fileN[0]);
+            data.append("ID", $('#IDsKBNH').val())
+            data.append("KhabnahStyle", $('#UKhabnahStyle').val())
+
+
+        var $j = jQuery.noConflict();
+        $.ajax({
+            type: "POST",
+            url: "/MeasureStyles/UpdateKBNH",
+            data: data,
+            processData: false,
+            contentType: false,
+            //dataType: "json",
+            jsonp: true,
+            success: function (result) {
+                $('#myKBNHModal').modal('hide');
+                $("#IDsKBNH").val("");
+                $('#UKhabnahStyle').val("");
+                window.location.href = '@Url.Action("Index", "MeasureStyles")'
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+    function DeleteSlide() {
+        //var i = $('#IDs').val();
+        var empObj = {
+
+            ID: $('#IDsDN').val(),
+        };
+        empObj = JSON.stringify(empObj)
+        console.log(empObj);
+        var $j = jQuery.noConflict();
+        $.ajax({
+            type: "POST",
+            url: "/PageDetails/DeleteSlide",
+            data: empObj,
+            processData: false,
+            contentType: "application/json",
+            dataType: "json",
+            jsonp: true,
+            success: function (result) {
+                          window.location.href =  '@Url.Action("MainManagement", "PageDetails")'
+
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+    function DeleteSlideS() {
+        //var i = $('#IDs').val();
+        var empObj = {
+
+            ID: $('#IDsDN').val(),
+        };
+        empObj = JSON.stringify(empObj)
+        console.log(empObj);
+        var $j = jQuery.noConflict();
+        $.ajax({
+            type: "POST",
+            url: "/PageDetails/DeleteSlideS",
+            data: empObj,
+            processData: false,
+            contentType: "application/json",
+            dataType: "json",
+            jsonp: true,
+            success: function (result) {
+                          window.location.href =  '@Url.Action("MainManagement", "PageDetails")'
+
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+        }
+    /////////////////////////////////////////////////////////////////
+function Addtype() {
+    var data = new FormData();
+    var sel = document.getElementById("typecont");
+    var text = sel.options[sel.selectedIndex].text;
+    var b =parseInt(@ViewBag.PageInfo);
+    data.append("ContentName", text);
+    data.append("PageID", b);
+
+
+            var $j = jQuery.noConflict();
+            $.ajax({
+                type: "POST",
+                url: "/PageDetails/Addtype",
+                data: data,
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+                jsonp: true,
+                success: function (result) {
+
+                    window.location.href = '@Url.Action("MainManagement", "PageDetails")'
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+        function GetDynamicTextBox() {
+            var div = $("<div />");
+            div.append("<label for= 'cars' > Choose a Type:</label >  "
+                + " <select id='typecont' name='typecont' >"
+                + "<option value='card'>Card </option>"
+                + "<option value='paragraph'>Paragraph </option>"
+                + "<option value='clients'>Clients </option>"
+                + "<option value='video'>Video</option> </select>"
+                + "<button type='button'  class='btn btn-outline-warning'  id='btnM' onclick='Addtype(this)'> <span class='fa  fa-plus'></span></button>"
+                + "<button class='btn btn-outline-danger remove' onclick='RemoveTextBox(this)'  type='button'><span class='fa  fa-trash'></span></button>");
+
+            document.getElementById("btnAdd").style.display = "none";
+            return div;
+        }
+        function AddTextBox() {
+            var div = GetDynamicTextBox("");
+            $("#TextBoxContainer").append(div);
+        }
+        function RemoveTextBox(button) {
+            $(button).parent().remove();
+            document.getElementById("btnAdd").style.display = "";
+        }
+        $(function () {
+            var values = eval('@Html.Raw(ViewBag.Values)');
+            if (values != null) {
+                $("#TextBoxContainer").html("");
+                $(values).each(function () {
+                    $("#TextBoxContainer").append(GetDynamicTextBox(this));
+                });
+            }
+        });
+    /////////////////////////////////////////////////////////////////
+    </script>

@@ -4,10 +4,10 @@
 body{
 	overflow-x: hidden;
 }
-html{
-	--main-color: #bace37;
-	--second-color: #1d1d1b;
-    --second-is-color: #3b3b35;
+html {
+	--main-color: #00ADB5;
+	--second-color: #393E46;
+	--second-is-color: #3b3b35;
 }
  
 .owl-nav{

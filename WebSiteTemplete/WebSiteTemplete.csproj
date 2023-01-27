@@ -205,6 +205,7 @@
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.1\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Security.AccessControl, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.AccessControl.4.5.0\lib\net461\System.Security.AccessControl.dll</HintPath>
@@ -298,8 +299,11 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminViewModelsController.cs" />
+    <Compile Include="Controllers\ContentInfoesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PageDetailsController.cs" />
+    <Compile Include="Controllers\PageInfoesController.cs" />
     <Compile Include="Controllers\RoleViewModelsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -320,6 +324,22 @@
     <Compile Include="Migrations\202207060858030_MediaSubTypeAndTitleAndParagraph.Designer.cs">
       <DependentUpon>202207060858030_MediaSubTypeAndTitleAndParagraph.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202208160909137_PageInfo.cs" />
+    <Compile Include="Migrations\202208160909137_PageInfo.Designer.cs">
+      <DependentUpon>202208160909137_PageInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202208161345444_PgDet.cs" />
+    <Compile Include="Migrations\202208161345444_PgDet.Designer.cs">
+      <DependentUpon>202208161345444_PgDet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202208161622142_a1.cs" />
+    <Compile Include="Migrations\202208161622142_a1.Designer.cs">
+      <DependentUpon>202208161622142_a1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202210291317116_addPageId.cs" />
+    <Compile Include="Migrations\202210291317116_addPageId.Designer.cs">
+      <DependentUpon>202210291317116_addPageId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModels.cs" />
@@ -328,14 +348,25 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MediaSubTypes.cs" />
     <Compile Include="Models\MediaType.cs" />
+    <Compile Include="Models\ContentInfo.cs" />
+    <Compile Include="Models\PageDetails.cs" />
     <Compile Include="Models\ParaGraphes.cs" />
     <Compile Include="Models\RoleViewModels.cs" />
     <Compile Include="Models\TextTypes.cs" />
+    <Compile Include="Models\PageInfo.cs" />
     <Compile Include="Models\Titles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Resource.ar.Designer.cs" />
-    <Compile Include="Resources\Resource.ar1.Designer.cs" />
-    <Compile Include="Resources\Resource.Designer.cs" />
+    <Compile Include="Resources\Resource.ar2.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.ar.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Resource1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -464,10 +495,27 @@
     <Content Include="Views\AdminViewModels\Details.cshtml" />
     <Content Include="Views\AdminViewModels\Edit.cshtml" />
     <Content Include="Views\AdminViewModels\Index.cshtml" />
-    <Content Include="Views\AdminViewModels\MainManagement.cshtml" />
+    <Content Include="Views\PageInfoes\Create.cshtml" />
+    <Content Include="Views\PageInfoes\Delete.cshtml" />
+    <Content Include="Views\PageInfoes\Details.cshtml" />
+    <Content Include="Views\PageInfoes\Edit.cshtml" />
+    <Content Include="Views\PageInfoes\Index.cshtml" />
+    <Content Include="Views\ContentInfoes\Create.cshtml" />
+    <Content Include="Views\ContentInfoes\Delete.cshtml" />
+    <Content Include="Views\ContentInfoes\Details.cshtml" />
+    <Content Include="Views\ContentInfoes\Edit.cshtml" />
+    <Content Include="Views\ContentInfoes\Index.cshtml" />
+    <Content Include="Views\PageDetails\Create.cshtml" />
+    <Content Include="Views\PageDetails\Delete.cshtml" />
+    <Content Include="Views\PageDetails\Details.cshtml" />
+    <Content Include="Views\PageDetails\Edit.cshtml" />
+    <Content Include="Views\PageDetails\Index.cshtml" />
+    <Content Include="Views\PageDetails\MainManagement.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="UploadFiles\" />
+    <Folder Include="Uploads\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -495,8 +543,26 @@
     <EmbeddedResource Include="Migrations\202207060858030_MediaSubTypeAndTitleAndParagraph.resx">
       <DependentUpon>202207060858030_MediaSubTypeAndTitleAndParagraph.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Resource.ar.resx" />
-    <EmbeddedResource Include="Resources\Resource.resx" />
+    <EmbeddedResource Include="Migrations\202208160909137_PageInfo.resx">
+      <DependentUpon>202208160909137_PageInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202208161345444_PgDet.resx">
+      <DependentUpon>202208161345444_PgDet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202208161622142_a1.resx">
+      <DependentUpon>202208161622142_a1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202210291317116_addPageId.resx">
+      <DependentUpon>202210291317116_addPageId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Resource.ar.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.ar2.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Resource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

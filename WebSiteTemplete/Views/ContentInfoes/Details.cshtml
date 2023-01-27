@@ -1,0 +1,43 @@
+﻿@model WebSiteTemplete.Models.ContentInfo
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ContentInfo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ContentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContentAName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContentAName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContentEName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContentEName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

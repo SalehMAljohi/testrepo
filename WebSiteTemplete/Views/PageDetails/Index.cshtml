@@ -1,8 +1,10 @@
 ﻿@model IEnumerable<WebSiteTemplete.Models.PageInfo>
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <h2>Browsing Genre: a</h2>
 <ul>
     @foreach (var item in Model)
@@ -45,7 +47,7 @@
             var $j = jQuery.noConflict();
             $.ajax({
                 type: "POST",
-                url: "/Home/AddPage",
+                url: "/PageDetails/AddPage",
                 data: data,
                 dataType: 'json',
                 contentType: false,
@@ -53,7 +55,7 @@
                 jsonp: true,
                 success: function (result) {
 
-                    window.location.href = '@Url.Action("Index", "Home")'
+                    window.location.href = '@Url.Action("Index", "PageDetails")'
                 },
                 error: function (errormessage) {
                     alert(errormessage.responseText);

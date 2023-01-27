@@ -1,4 +1,4 @@
-﻿<!doctype html>
+﻿<!doctype html >
 <html lang="ar" dir="rtl">
 
 <head>
@@ -28,64 +28,20 @@
     <!-- Required meta tags -->
     <!-- Start file link -->
     @Styles.Render("~/css")
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    @*<link rel="stylesheet" href="~/css/bootstrap.min.css">
-    <link rel="stylesheet" href="~/css/owl.min.css">
-    <link rel="stylesheet" href="~/css/owl.theme.default.css">
-    <link rel="stylesheet" type="text/css" href="~/css/cust-fonts.css">
-    <link rel="stylesheet" type="text/css" href="~/css/fontawsome.min.css">
-    <link rel="stylesheet" type="text/css" href="~/css/responsive-font.css">
-    <link rel="stylesheet" href="~/css/file/fancybox.css" />
-    <link rel="stylesheet" href="~/css/file/aos.css">
-    <link rel="stylesheet" href="~/css/styles.css">*@
-    @*<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-        <link rel="icon" href="images/favicon.ico" type="image/x-icon">*@
-
-    <meta name="twitter:card" content="summary_large_image" />
-    @*<meta name="twitter:site" content="@www.twitter.com/qtbbank" />*@
-    <meta name="twitter:title" content="بنك " />
-    <meta name="twitter:description" content="معاملاتك أسهل - أأمن - أقوى" />
-    @*<meta name="twitter:image" content="images/photo_all.jpg" />*@
-
-    <!-- عنوان الصفحة -->
-    <meta property="og:title" content="بنك القطيبي اولويتك في المعاملات" />
-    <meta property="og:type" content="article" />
-    <!-- اسم الموقع -->
-    <meta property="og:site_name" content="بنك القطيبي الإسلامي للتمويل الأصغر">
-    <!-- من التفاصيل في الصفحة -->
-    <meta property="og:description" content="معاملاتك أسهل - أأمن - أقوى" />
-    <!-- صورة الصفحة -->
-    <meta property="og:image" content="~/images/photo_all.jpg" />
-    <meta property="og:image:type" content="image/jpeg" />
-    <meta property="og:image:width" content="400" />
-    <meta property="og:image:height" content="400" />
-    <!-- رابط المقال او الصفحة -->
-    <meta property="og:url" content="https://qtbbank.com/" />
-
-    <meta name="description" content=" معاملاتك أسهل - أأمن - أقوى" />
-    <!-- End file link -->
-    <!--  -->
-    <!-- End file link -->
-    <meta content="http://www.qtbbank.com" property="og:url">
-    <meta content="بنك  - alqutaibi islamic bank" name="description">
-    <meta content="مصرف اسلامي, بنك اسلامي, تمويل سيارات, تمويل,عقاري, تمويل بناء, فتح حساب بنكي, سعر الصرف في اليمن, دعم المشاريع, مصرف, بنك القطيبي, اليمن, بنوك اليمن, خدمات ماليه ,خدمات مصرفية, أخبار بنك القطيبي, بطاقات الإتمان اليمن, عروض تمويل القطيبي’ عروض التمويل التأجيري, بطاقات القطيبي, موقع القطيبي, القطيبي, البنك الإسلامي, المصرفية الألكترونية, القطيبي اونلاين, " name="keywords">
-    <title>الموقع   - الرئيسية</title>
 </head>
 
 <body>
     <div style="width:100%;position: fixed;height: 100vh;z-index: 123456789;background: #fff;height: 100vh;" id="pre-loader">
         <div class="p-0 d-flex align-items-center justify-content-center" style="height:100vh">
-    <img src="#" style="width:200px;max-width:100%;" class="d-inline-block">
-    </div>
+            <img src="#" style="width:200px;max-width:100%;" class="d-inline-block">
+        </div>
     </div>
     <!-- start msg website -->
     <!-- Google Tag Manager (noscript) -->
     @*<noscript>
-        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T4T7NTG"
-                height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>*@
+            <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T4T7NTG"
+                    height="0" width="0" style="display:none;visibility:hidden"></iframe>
+        </noscript>*@
     <!-- End Google Tag Manager (noscript) -->
 
     <div class="col-12 active" style="background: var(--second-color);" id="alert-message">
@@ -104,7 +60,7 @@
     <!-- End msg website -->
     <!-- start navbar -->
 
-
+    @*
     <div class="col-12" id="main-fixed-top">
         <nav class="navbar navbar-expand-lg navbar-dark  py-3" style="background: var(--main-color);">
             <div class="container" style="direction: ltr;">
@@ -116,6 +72,12 @@
                 </button>
                 <div class="collapse  navbar-collapse py-4 py-md-0" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-md-auto mb-2 mb-lg-0 px-0" style="direction:rtl">
+                        @*   @foreach (var item in page)
+        {
+            <li>
+                @Html.ActionLink(item.PageName, "Main", new { id = item.ID })
+            </li>
+        }
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="/Home/Main">الرئيسية</a>
                         </li>
@@ -226,6 +188,7 @@
             </div>
         </nav>
     </div>
+   *@
     @RenderBody()
 
     <!-- مودل  رسالة الخطأ -->
@@ -247,9 +210,6 @@
 
     <!-- انتهاء مودل رسالة الخطأ -->
     <!-- End navbar -->
-
-
-
     <!-- start fotor -->
 
 
@@ -318,14 +278,14 @@
         </div>
         <div class="col-12 col-sm-12 col-md-6 py-4" style="text-align: right; font-size: 12px; /*font-weight: bold; */ color: var(--main-color);background: var(--second-color);">
             <ul style="color: #fff;display: block ruby; padding: 0px; text-align: left;list-style-type: none;margin: 0px;">
-                <li class="item-end odd first" style="border-right: 2px solid #bace37;padding-right: 5px;padding-left: 5px;">
-                    <a href="#" style="color: #bace37;" data-variantfieldname="Link" title="الوعي ضد الاحتيال">الوعي ضد الاحتيال</a>
+                <li class="item-end odd first" style="border-right: 2px solid var(--main-color);padding-right: 5px;padding-left: 5px;">
+                    <a href="#" style="color: var(--main-color);" data-variantfieldname="Link" title="الوعي ضد الاحتيال">الوعي ضد الاحتيال</a>
                 </li>
-                <li class="item-end even" style="border-right: 2px solid #bace37;padding-right: 5px;padding-left: 5px;">
-                    <a href="/Home/WarningPage" style="color: #bace37;" data-variantfieldname="Link" title="الخصوصية">الخصوصية</a>
+                <li class="item-end even" style="border-right: 2px solid var(--main-color); padding-right: 5px; padding-left: 5px;">
+                    <a href="/Home/WarningPage" style="color: var(--main-color);" data-variantfieldname="Link" title="الخصوصية">الخصوصية</a>
                 </li>
-                <li class="item-end odd last" style="border-right: 2px solid #bace37;padding-right: 5px;padding-left: 5px;">
-                    <a href="/Home/WarningPage" style="color: #bace37;" data-variantfieldname="Link" title="الشروط والأحكام">الشروط والأحكام</a>
+                <li class="item-end odd last" style="border-right: 2px solid var(--main-color);padding-right: 5px;padding-left: 5px;">
+                    <a href="/Home/WarningPage" style="color: var(--main-color);" data-variantfieldname="Link" title="الشروط والأحكام">الشروط والأحكام</a>
                 </li>
             </ul>
         </div>
@@ -338,11 +298,11 @@
     @Scripts.Render("~/js")
 
     @*<script src="~/js/jquery.min_3.6.0.js"></script>
-    <script src="~/js/bootstrap.min.js"></script>
-    <script src="~/js/owl.carousel.min.js"></script>
-    <script src="~/js/aos.js"></script>
-    <script src="~/js/fancybox.umd.js"></script>
-    <script src="~/js/main.js"></script>*@
+        <script src="~/js/bootstrap.min.js"></script>
+        <script src="~/js/owl.carousel.min.js"></script>
+        <script src="~/js/aos.js"></script>
+        <script src="~/js/fancybox.umd.js"></script>
+        <script src="~/js/main.js"></script>*@
 
     <script>
         var adress = $(".adres-text").html();
